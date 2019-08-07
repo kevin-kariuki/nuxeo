@@ -25,8 +25,10 @@ import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.automation.core.collectors.DocumentModelCollector;
 import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.CoreSession.CopyOption;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
+import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 
 /**
  * @author <a href="mailto:bs@nuxeo.com">Bogdan Stefanescu</a>
@@ -45,11 +47,17 @@ public class CopyDocument {
     @Param(name = "name", required = false)
     protected String name;
 
+    @Param(name = CoreEventConstants.RESET_LIFECYCLE, required = false)
+    protected Boolean resetLifeCycle;
+
     @OperationMethod(collector = DocumentModelCollector.class)
     public DocumentModel run(DocumentModel doc) {
         String n = name;
         if (name == null || name.length() == 0) {
             n = doc.getName();
+        }
+        if (Boolean.TRUE.equals(resetLifeCycle)) {
+            return session.copy(doc.getRef(), target, n, CopyOption.RESET_LIFE_CYCLE);
         }
         return session.copy(doc.getRef(), target, n);
     }
@@ -59,6 +67,9 @@ public class CopyDocument {
         String n = name;
         if (name == null || name.length() == 0) {
             n = session.getDocument(ref).getName();
+        }
+        if (Boolean.TRUE.equals(resetLifeCycle)) {
+            return session.copy(ref, target, n, CopyOption.RESET_LIFE_CYCLE);
         }
         return session.copy(ref, target, n);
     }
