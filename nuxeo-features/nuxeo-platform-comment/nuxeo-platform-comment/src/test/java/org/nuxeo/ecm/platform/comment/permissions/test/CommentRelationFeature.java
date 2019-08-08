@@ -39,5 +39,9 @@ import org.nuxeo.runtime.test.runner.SimpleFeature;
         "org.nuxeo.ecm.platform.comment", //
 })
 @LocalDeploy("org.nuxeo.ecm.platform.comment.tests:OSGI-INF/comment-jena-contrib.xml")
-public class CommentFeature extends SimpleFeature {
+/**
+ * @deprecated since 10.10-HF12. Used to test the deprecated CommentManagerImpl.
+ */
+@Deprecated
+public class CommentRelationFeature extends SimpleFeature {
 }

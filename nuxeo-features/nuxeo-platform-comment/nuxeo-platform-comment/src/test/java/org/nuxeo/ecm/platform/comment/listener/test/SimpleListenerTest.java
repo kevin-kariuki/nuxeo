@@ -39,15 +39,14 @@ import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.platform.comment.api.Comment;
 import org.nuxeo.ecm.platform.comment.api.CommentImpl;
 import org.nuxeo.ecm.platform.comment.api.CommentManager;
-import org.nuxeo.ecm.platform.comment.permissions.test.CommentFeature;
-import org.nuxeo.ecm.platform.test.PlatformFeature;
+import org.nuxeo.ecm.platform.comment.permissions.test.CommentRelationFeature;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
 @RunWith(FeaturesRunner.class)
-@Features({ PlatformFeature.class, CommentFeature.class })
+@Features({ CommentRelationFeature.class })
 public class SimpleListenerTest {
 
     @Inject
